@@ -37,7 +37,7 @@ int compra_alta(Compra *arrayCompra,int limiteCompra, Cliente *pArrayClientes,in
 			if(utn_getEntero("\nINGRESE ID DEL CLIENTE: ","\nERROR!!!!! REINGRESE ID: ",&bufferCompra.idCliente,3,99999999,0)==0 &&
 				cliente_buscarIndicePorId(pArrayClientes,limiteCliente,bufferCompra.idCliente) != -1 &&
 				utn_getEntero("\nINGRESE LA CANTIDAD DE BARBIJOS: ","\nERROR!!!!! REINGRESE CANTIDAD DE BARBIJOS: ",&bufferCompra.cantidadBarbijos,3,99999999,0)==0 &&
-				utn_getTexto("INGRESE LA DIRECCION DE ENTREGA","ERRORRRR!!!!!!!!!!!! REINGRESE LA DIRECCION DE ENTREGA",bufferCompra.textoDireccionEntrega,3,QTY_CARACTERESENTREGA) &&
+				utn_getTexto("INGRESE LA DIRECCION DE ENTREGA","ERRORRRR!!!!!!!!!!!! REINGRESE LA DIRECCION DE ENTREGA",bufferCompra.textoDireccionEntrega,3,QTY_CARACTERESENTREGA)==0 &&
 				utn_getTexto("INGRESE EL COLOR","ERRORRRR!!!!!!!!!!!! REINGRESE EL COLOR",bufferCompra.color,3,QTY_CARACTERESCOLOR)==0 &&
 				utn_getEntero("ingrese el importe total: ","Error!!!! Reingrese el importe total: ", &bufferCompra.ImporteTotal, 3, 99999999, 0)==0)
 			{
@@ -129,6 +129,7 @@ int compra_pagarCompra (Cliente * pArrayCliente, int limiteCliente,Compra *array
 
 	if (pArrayCliente != NULL && limiteCliente >0 && arrayCompra!=NULL && limiteCompra>0)
 	{
+		cliente_imprimir(pArrayCliente, limiteCliente);
 		if(compra_imprimir(arrayCompra, limiteCompra)==0 && utn_getEntero("\n INGRESE EL ID DE LA COMPRA QUE DESEA PAGAR: ","\nERROR!!!!! ID NO ENCONTRADO",&idCompra,3,9999,0)==0 &&
 			compra_buscarIndicePorIdRef(arrayCompra,limiteCompra,idCompra,&indiceCliente)==0)
 		{

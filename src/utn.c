@@ -248,28 +248,29 @@ char bufferString[LIMITE_BUFFER_STRING];
 
 int utn_getTexto(char* mensaje, char* mensajeError, char* pResultado,int reintentos, int limite)
 {
-char bufferString[LIMITE_BUFFER_STRING];
-	int retorno = -1;
+	char bufferString[LIMITE_BUFFER_STRING];
+		int retorno = -1;
 
-	if(mensaje != NULL && mensajeError != NULL && pResultado != NULL && reintentos >= 0 && limite > 0)
-	{
-		do
+		if(mensaje != NULL && mensajeError != NULL && pResultado != NULL && reintentos >= 0 && limite > 0)
 		{
-			printf("%s",mensaje);
-			if( myGets(bufferString,LIMITE_BUFFER_STRING) == 0 &&
-				strnlen(bufferString,sizeof(bufferString)-1)<= limite)
+			do
 			{
-				retorno = 0;
-				strncpy(pResultado,bufferString,limite);
-				break;
-			}
-			else
-			{
-				printf("%s",mensajeError);
-				reintentos--;
-			}
-		}while(reintentos >= 0);
-	}
+				printf("%s",mensaje);
+				if( myGets(bufferString,LIMITE_BUFFER_STRING) == 0 &&
+					strnlen(bufferString,sizeof(bufferString)-1)<= limite &&
+					esUnNombreValido(bufferString,limite) != 0 ) //verdadero
+				{
+					retorno = 0;
+					strncpy(pResultado,bufferString,limite);
+					break;
+				}
+				else
+				{
+					printf("%s",mensajeError);
+					reintentos--;
+				}
+			}while(reintentos >= 0);
+		}
 	return retorno;
 }
 /**
